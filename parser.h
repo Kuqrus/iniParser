@@ -23,23 +23,26 @@ public:
 
 	
 	template<class T>
-	T Get(std::string sect, std::string name) {
-		
-		sect.insert(sect.length(), "]");
-		sect.insert(0, "[");
+	T Get(std::string sect, std::string name) {	
 		std::string key = MakeKey(sect, name);
 		return data.count(key) ? data.find(key)->second : throw std::exception{ "No value found" };
 	}
 
 	template<>
 	int Get(std::string sect, std::string name) {
-
-		sect.insert(sect.length(), "]");
-		sect.insert(0, "[");
 		std::string key = MakeKey(sect, name);
 		std::string value = data.count(key) ? data.find(key)->second : throw std::exception{ "No value found" };
 
 		int valueInt = std::stoi(value);
+		return valueInt;
+	}
+
+	template<>
+	double Get(std::string sect, std::string name) {
+		std::string key = MakeKey(sect, name);
+		std::string value = data.count(key) ? data.find(key)->second : throw std::exception{ "No value found" };
+
+		double valueInt = std::stod(value);
 		return valueInt;
 	}
 
@@ -81,6 +84,10 @@ private:
 
 	// Make key for map
 	std::string MakeKey(std::string& sect, std::string& name) {
+		if (sect.find("[") == std::string::npos) {
+			sect.insert(sect.length(), "]");
+			sect.insert(0, "[");
+		}
 		std::string key = sect + "=" + name;
 		std::transform(key.begin(), key.end(), key.begin(),
 			[](unsigned char ch) {return std::tolower(ch); });
@@ -133,14 +140,8 @@ private:
 
 
 void startParser() {	
-	try
-	{
-		ini_parser test("testfile.ini");
-		auto value = test.Get<int>("one", "x");
-		std::cout << "Value: " << value << ", Type: " << typeid(value).name() << std::endl;
-	}
-	catch (const std::exception& ex)
-	{
-		std::cout << ex.what() << std::endl;
-	}	
+
+	ini_parser test("testfile.ini");
+	auto value = test.Get<double>("two", "x");
+	std::cout << "Value: " << value << ", Type: " << typeid(value).name() << std::endl;
 }
