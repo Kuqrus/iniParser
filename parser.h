@@ -24,25 +24,27 @@ public:
 	
 	template<class T>
 	T Get(std::string sect, std::string name) {	
-		std::string key = MakeKey(sect, name);
-		return data.count(key) ? data.find(key)->second : throw std::exception{ "No value found" };
+		//std::string key = MakeKey(sect, name);
+		//return data.count(key) ? data.find(key)->second : throw std::exception{ "No value found" };
+
+		return MakeValue(sect, name);
 	}
 
 	template<>
 	int Get(std::string sect, std::string name) {
-		std::string key = MakeKey(sect, name);
-		std::string value = data.count(key) ? data.find(key)->second : throw std::exception{ "No value found" };
+		//std::string key = MakeKey(sect, name);
+		//std::string value = data.count(key) ? data.find(key)->second : throw std::exception{ "No value found" };
 
-		int valueInt = std::stoi(value);
+		int valueInt = std::stoi(MakeValue(sect, name));
 		return valueInt;
 	}
 
 	template<>
 	double Get(std::string sect, std::string name) {
-		std::string key = MakeKey(sect, name);
-		std::string value = data.count(key) ? data.find(key)->second : throw std::exception{ "No value found" };
+		//std::string key = MakeKey(sect, name);
+		//std::string value = data.count(key) ? data.find(key)->second : throw std::exception{ "No value found" };
 
-		double valueInt = std::stod(value);
+		double valueInt = std::stod(MakeValue(sect, name));
 		return valueInt;
 	}
 
@@ -56,7 +58,7 @@ private:
 			return 0;
 		}
 		else if (line.find(";") != std::string::npos) {
-			return line.find(";");
+			return static_cast<int>(line.find(";"));
 		}
 		else return -1;
 	}
@@ -93,11 +95,16 @@ private:
 			[](unsigned char ch) {return std::tolower(ch); });
 		return key;
 	}
-		
+	
+	std::string MakeValue(std::string& sect, std::string& name) {
+		std::string key = MakeKey(sect, name);
+		return data.count(key) ? data.find(key)->second : throw std::exception{ "No value found" };
+	}
+
 	void FillData() {
-		std::string sect = "INIT", name = "INIT", value = "INIT";
-		std::string line = "INIT";
-		std::string key = "INIT";
+		std::string sect, name, value;
+		std::string line;
+		std::string key;
 
 		while (!file.eof()) {
 			std::getline(file, line);
