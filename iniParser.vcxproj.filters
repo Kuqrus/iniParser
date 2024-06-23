@@ -15,17 +15,26 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp">
+    <ClCompile Include="iniParser.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="testfile.ini">
+    <None Include="cfg.ini">
+      <Filter>Исходные файлы</Filter>
+    </None>
+    <None Include="_old\testfile.ini">
       <Filter>Исходные файлы</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="parser.h">
+    <ClInclude Include="iniParser.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="_old\parser.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
   </ItemGroup>

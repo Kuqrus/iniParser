@@ -128,13 +128,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="iniParser.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="testfile.ini" />
+    <None Include="cfg.ini" />
+    <None Include="_old\testfile.ini" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="parser.h" />
+    <ClInclude Include="iniParser.h" />
+    <ClInclude Include="_old\parser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
